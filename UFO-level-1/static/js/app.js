@@ -65,8 +65,13 @@ function insertFilteredData() {
     // grabbing input field's text
     date = input.property('value');
 
+    // mapping tableData to filtData
+    var filtData = tableData.map(entry => entry);
+
     // using my filter function
-    var filtData = filterByDate(tableData, date);
+    if (date !== '') {
+        filtData = filterByDate(filtData, date);
+    }
 
     // console.log(filtData);
     
