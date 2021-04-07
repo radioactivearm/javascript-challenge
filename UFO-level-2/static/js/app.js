@@ -80,7 +80,7 @@ function insertFilteredData() {
     var filtData = tableData.map(item => item);
 
     if (date !== '') {
-        var filtData = filterByDate(filtData, date);
+        filtData = filterByDate(filtData, date);
     }
 
     if (city !== '') {
