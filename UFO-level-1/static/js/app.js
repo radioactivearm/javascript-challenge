@@ -33,10 +33,29 @@ function insertFilteredData() {
     // grabbing input field's text
     date = input.property('value');
 
+    // using my filter function
     var filtData = filterByDate(tableData, date);
 
-    console.log(filtData);
+    // console.log(filtData);
+    
+    // testing forEach loop
+    // filtData.forEach(entry => console.log(entry));
 
+    // get tbody 
+    var tbody = d3.select('tbody');
+
+    //to clear out old data
+    tbody.html('');
+    
+    // adding more to loop
+    filtData.forEach(entry => {
+        var row = tbody.append('tr');
+        Object.entries(entry).forEach(([key, ufo]) => {
+            console.log(key, ufo);
+            var cell = row.append('td');
+            cell.text(ufo);
+        });
+    });
 }
 
 
