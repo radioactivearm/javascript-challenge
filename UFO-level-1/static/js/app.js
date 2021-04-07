@@ -6,6 +6,21 @@ console.log('loaded app.js');
 var tableData = data;
 console.log(tableData);
 
+//------------------------------
+// original population of table
+var tbody = d3.select('tbody');
+
+// populating table
+tableData.forEach(entry => {
+    var row = tbody.append('tr');
+    Object.entries(entry).forEach(([key, ufo]) => {
+        console.log(key, ufo);
+        var cell = row.append('td');
+        cell.text(ufo);
+    });
+});
+//---------------------------------
+
 
 // I want to start by writing a function that filters by a inputed data
 // takes in data and date and returns filtered data works with half a date like '1/5'
@@ -46,8 +61,8 @@ function insertFilteredData() {
 
     //to clear out old data
     tbody.html('');
-    
-    // adding more to loop
+
+    // populating table with filterd data
     filtData.forEach(entry => {
         var row = tbody.append('tr');
         Object.entries(entry).forEach(([key, ufo]) => {
