@@ -21,11 +21,28 @@ tableData.forEach(entry => {
 });
 //---------------------------------
 
-
+// This version did not work correctly
 // I want to start by writing a function that filters by a inputed data
 // takes in data and date and returns filtered data works with half a date like '1/5'
+// function filterByDate(data, date) {
+//     var filteredData = data.filter(entry => entry.datetime.includes(date));
+//     return filteredData;
+// }
+
+// This takes in a abbreviated date and data and filters the data to return
+// only data with that date
+// I wrote it this way because I didn't like typing in 2010
+// BUT! function should handle both abbreviated and long form dates.
 function filterByDate(data, date) {
-    var filteredData = data.filter(entry => entry.datetime.includes(date));
+    var filteredData = data.filter(entry => {
+        var entryArr = entry.datetime.split('/');
+        var shortEntry = entryArr[0].concat('/', entryArr[1]);
+        var dateArr = date.split('/');
+        var shortDate = dateArr[0].concat('/', dateArr[1]);
+        if (shortEntry === shortDate) {
+            return true;
+        }
+    });
     return filteredData;
 }
 
