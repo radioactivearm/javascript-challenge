@@ -8,15 +8,38 @@ console.log(tableData);
 
 
 // I want to start by writing a function that filters by a inputed data
-// takes in data and date and returns filtered data
+// takes in data and date and returns filtered data works with half a date like '1/5'
 function filterByDate(data, date) {
     var filteredData = data.filter(entry => entry.datetime.includes(date));
     return filteredData;
 }
-console.log('From Function')
-console.log(filterByDate(tableData, '1/1/2010'));
+
+// Now to grab the button and form
+var button = d3.select('#filter-btn');
+var form = d3.select('#form');
+
+// creating events
+button.on('click', insertFilteredData);
+form.on('submit', insertFilteredData);
+
+function insertFilteredData() {
+
+    // stop from refreshing page
+    d3.event.preventDefault();
+    
+    // selecting the input field
+    var input = d3.select('input');
+
+    // grabbing input field's text
+    date = input.property('value');
+
+    var filtData = filterByDate(tableData, date);
+
+    console.log(filtData);
+
+}
 
 
-var filteredData = tableData.filter(data => data.datetime === '1/1/2010');
-console.log('not From Function')
-console.log(filteredData);
+
+
+
