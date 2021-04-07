@@ -21,13 +21,6 @@ tableData.forEach(entry => {
 });
 //---------------------------------
 
-// This version did not work correctly
-// I want to start by writing a function that filters by a inputed data
-// takes in data and date and returns filtered data works with half a date like '1/5'
-// function filterByDate(data, date) {
-//     var filteredData = data.filter(entry => entry.datetime.includes(date));
-//     return filteredData;
-// }
 
 // This takes in a abbreviated date and data and filters the data to return
 // only data with that date
@@ -46,27 +39,54 @@ function filterByDate(data, date) {
     return filteredData;
 }
 
+// put in data first then city
+function filterByCity(data, city) {
+    var filteredData = data.filter(entry => entry.city.toLowerCase() === city.toLowerCase());
+    return filteredData;
+}
+
 // Now to grab the button and form
 var button = d3.select('#filter-btn');
-var form = d3.select('#form');
+var form = d3.selectAll('#form');
+
 
 // creating events
 button.on('click', insertFilteredData);
 form.on('submit', insertFilteredData);
+
+
+
+
 
 function insertFilteredData() {
 
     // stop from refreshing page
     d3.event.preventDefault();
     
-    // selecting the input field
-    var input = d3.select('input');
-
+    // selecting the date input field
+    var dateInput = d3.select('#datetime');
     // grabbing input field's text
-    date = input.property('value');
+    var date = dateInput.property('value');
 
-    // using my filter function
-    var filtData = filterByDate(tableData, date);
+    // selecting city input
+    var cityInput = d3.select('#city');
+    var city = cityInput.property('value');
+
+
+    // using my filter functions
+    // set up if statements to catch empty inputs
+
+    // making a clone of tableData to filter on
+    var filtData = tableData.map(item => item);
+
+    if (date !== '') {
+        var filtData = filterByDate(filtData, date);
+    }
+
+    if (city !== '') {
+        filtData = filterByCity(filtData, city);
+    }
+    
 
     // console.log(filtData);
     
