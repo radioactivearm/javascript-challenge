@@ -1,3 +1,7 @@
+// Double check that file is loaded in html
+console.log('loaded data.js');
+
+// data
 var data = [{
     datetime: "1/1/2010",
     city: "benton",
