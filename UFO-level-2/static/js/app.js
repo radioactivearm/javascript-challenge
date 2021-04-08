@@ -103,11 +103,14 @@ function filterByComment(data, word) {
 // Now to grab the button and form
 var button = d3.select('#filter-btn');
 var form = d3.select('#form');
+var clear = d3.select('#clear-btn');
 
 
 // creating events
 button.on('click', insertFilteredData);
 form.on('submit', insertFilteredData);
+clear.on('click', clearFilter);
+
 
 // d3.selectAll('li').on('submit', function() {
 //     var inputEntry = d3.select(this);
@@ -190,7 +193,22 @@ function insertFilteredData() {
     });
 }
 
+function clearFilter() {
 
+    // stop from refreshing page
+    d3.event.preventDefault();
+   
+    // getting a hold of handles for filter forms
+    filterArr = [d3.select('#datetime'), d3.select('#city'), d3.select('#state'),
+            d3.select('#country'), d3.select('#shape'), d3.select('#comment')];
+
+    for (i=0; i < filterArr.length; i++) {
+        filterArr[i].property('value', '');
+    }
+
+    insertFilteredData()
+
+}
 
 
 
