@@ -84,7 +84,11 @@ function filterByCountry(data, ctry) {
     return filteredData;
 }
 
-
+// function that filters by shape
+function filterByShape(data, shape) {
+    var filteredData = data.filter(entry => entry.shape.toLowerCase() === shape.toLowerCase());
+    return filteredData;
+}
 
 
 // Now to grab the button and form
@@ -120,6 +124,9 @@ function insertFilteredData() {
     // selecting country 
     var country = d3.select('#country').property('value');
 
+    // selecting shape input and its value
+    var shape = d3.select('#shape').property('value');
+
     // using my filter functions
     // set up if statements to catch empty inputs
 
@@ -142,6 +149,9 @@ function insertFilteredData() {
     // filter once again by country, if empty again nothing happens
     if (country !== '') {
         filtData = filterByCountry(filtData, country);
+    }
+    if (shape !== '') {
+        filtData = filterByShape(filtData, shape);
     }
 
     // console.log(filtData);
