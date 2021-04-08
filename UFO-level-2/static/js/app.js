@@ -72,11 +72,20 @@ function filterByCity(data, city) {
     return filteredData;
 }
 
-// functions that filters by state
+// function that filters by state
 function filterByState(data, state) {
-    var filteredData = data.filter(entry => entry.state.toLowerCase() ===state.toLowerCase());
+    var filteredData = data.filter(entry => entry.state.toLowerCase() === state.toLowerCase());
     return filteredData;
 }
+
+// function that filters by country
+function filterByCountry(data, ctry) {
+    var filteredData = data.filter(entry => entry.country.toLowerCase() === ctry.toLowerCase());
+    return filteredData;
+}
+
+
+
 
 // Now to grab the button and form
 var button = d3.select('#filter-btn');
@@ -99,18 +108,17 @@ function insertFilteredData() {
     // stop from refreshing page
     d3.event.preventDefault();
     
-    // selecting the date input field
-    var dateInput = d3.select('#datetime');
-    // grabbing input field's text
-    var date = dateInput.property('value');
+    // selecting the date input field and its value
+    var date = d3.select('#datetime').property('value');
 
-    // selecting city input
-    var cityInput = d3.select('#city');
-    var city = cityInput.property('value');
+    // selecting city 
+    var city = d3.select('#city').property('value');
 
-    // selecting state input
-    var stateInput = d3.select('#state');
-    var state = stateInput.property('value');
+    // selecting state
+    var state = d3.select('#state').property('value');
+
+    // selecting country 
+    var country = d3.select('#country').property('value');
 
     // using my filter functions
     // set up if statements to catch empty inputs
@@ -131,7 +139,10 @@ function insertFilteredData() {
     if (state !== '') {
         filtData = filterByState(filtData, state);
     }
-
+    // filter once again by country, if empty again nothing happens
+    if (country !== '') {
+        filtData = filterByCountry(filtData, country);
+    }
 
     // console.log(filtData);
     
