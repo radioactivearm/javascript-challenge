@@ -90,6 +90,15 @@ function filterByShape(data, shape) {
     return filteredData;
 }
 
+// this function is designed to filter the data by looking for words included in the string contained
+// in the comments element
+function filterByComment(data, word) {
+    var filteredData = data.filter(entry => entry.comments.toLowerCase().includes(word.toLowerCase()));
+    // the toLowerCase is important here because you don't know where in the sentence the word lives
+    // the includes is what makes this work the way I want it to 
+    return filteredData;
+}
+
 
 // Now to grab the button and form
 var button = d3.select('#filter-btn');
@@ -127,6 +136,9 @@ function insertFilteredData() {
     // selecting shape input and its value
     var shape = d3.select('#shape').property('value');
 
+    // selecting comment input and its value
+    var word = d3.select('#comment').property('value');
+
     // using my filter functions
     // set up if statements to catch empty inputs
 
@@ -153,7 +165,9 @@ function insertFilteredData() {
     if (shape !== '') {
         filtData = filterByShape(filtData, shape);
     }
-
+    if (word !== '') {
+        filtData = filterByComment(filtData, word);
+    }
     // console.log(filtData);
     
     // testing forEach loop
