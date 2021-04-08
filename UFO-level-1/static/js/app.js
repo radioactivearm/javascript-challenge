@@ -33,18 +33,65 @@ tableData.forEach(entry => {
 // only data with that date
 // I wrote it this way because I didn't like typing in 2010
 // BUT! function should handle both abbreviated and long form dates.
+// function filterByDate(data, date) {
+//     var filteredData = data.filter(entry => {
+//         var entryArr = entry.datetime.split('/');
+//         var shortEntry = entryArr[0].concat('/', entryArr[1]);
+//         var dateArr = date.split('/');
+//         var shortDate = dateArr[0].concat('/', dateArr[1]);
+//         if (shortEntry === shortDate) {
+//             return true;
+//         }
+//     });
+//     return filteredData;
+// }
+
+
+
+// This takes in data and an abbreviated date (or full date) and filters the data to return
+// only data with that date
+// I wrote it this way because I didn't like typing in 2010
+// BUT! function should handle both abbreviated and long form dates.
+
+// This improved function should be able to handle years now too.
+// incase say we added new data into the mix from say 2020.
 function filterByDate(data, date) {
     var filteredData = data.filter(entry => {
-        var entryArr = entry.datetime.split('/');
-        var shortEntry = entryArr[0].concat('/', entryArr[1]);
+
+        // splitting date into and array at '/'
         var dateArr = date.split('/');
-        var shortDate = dateArr[0].concat('/', dateArr[1]);
-        if (shortEntry === shortDate) {
+        // checking to see how many elements are in the input
+        // there are two it does the abbreviated method
+        if (dateArr.length === 2) {
+
+            // piecing back together date you entered
+            var shortDate = dateArr[0].concat('/', dateArr[1]);
+
+            // splitting part data date and putting back together as partial date
+            var entryArr = entry.datetime.split('/');
+            var shortEntry = entryArr[0].concat('/', entryArr[1]);
+            // returning if they match
+            if (shortEntry === shortDate) {
+                return true;
+            }
+        }
+        // if there are 3 it does the long form method
+        else if (dateArr.length === 3) {
+            // checking if long from dates match
+            if (entry.datetime === date) {
+                return true;
+            }
+        }
+        // and if there is anything that doesn't fit that standard
+        // it will return everything
+        else {
             return true;
         }
     });
+    // returning filtered data
     return filteredData;
 }
+
 
 // Now to grab the button and form
 var button = d3.select('#filter-btn');
