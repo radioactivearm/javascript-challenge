@@ -4,6 +4,9 @@ This is my repo for my javascript homework for U of M data science bootcamp.
 # Function
 The function of this project is to apply filters to a set of data and then return that data in a table on the webpage.
 
+## HTML
+I decided to do a rather simple approach the html on this project. I imported some preset stylings from bootstrap that were given in the starter code, and i liked how it looked right off the bat, so I just left it how it was. I works and is easy to read, which is really what matters.
+
 
 ## UFO-1
 
