@@ -92,6 +92,7 @@ function filterByShape(data, shape) {
 
 // this function is designed to filter the data by looking for words included in the string contained
 // in the comments element
+// this is my favorite extra feature I added. Although the clear filter button is very functional.
 function filterByComment(data, word) {
     var filteredData = data.filter(entry => entry.comments.toLowerCase().includes(word.toLowerCase()));
     // the toLowerCase is important here because you don't know where in the sentence the word lives
@@ -107,9 +108,14 @@ var clear = d3.select('#clear-btn');
 
 
 // creating events
-button.on('click', insertFilteredData);
-form.on('submit', insertFilteredData);
+// button.on('click', insertFilteredData);
+// form.on('submit', insertFilteredData);
+
+// event that works on clear filter button and runs clear filter function
 clear.on('click', clearFilter);
+
+// handles all changes on filters, runs filter function
+d3.selectAll('.filter').on('change', insertFilteredData);
 
 
 // d3.selectAll('li').on('submit', function() {
@@ -165,9 +171,11 @@ function insertFilteredData() {
     if (country !== '') {
         filtData = filterByCountry(filtData, country);
     }
+    // filter by shape only if something is in filter
     if (shape !== '') {
         filtData = filterByShape(filtData, shape);
     }
+    // filter by word only if not empty
     if (word !== '') {
         filtData = filterByComment(filtData, word);
     }
@@ -193,6 +201,7 @@ function insertFilteredData() {
     });
 }
 
+// function that clears filter values
 function clearFilter() {
 
     // stop from refreshing page
@@ -202,10 +211,12 @@ function clearFilter() {
     filterArr = [d3.select('#datetime'), d3.select('#city'), d3.select('#state'),
             d3.select('#country'), d3.select('#shape'), d3.select('#comment')];
 
+    // loops thru and replaces values with empty strings
     for (i=0; i < filterArr.length; i++) {
         filterArr[i].property('value', '');
     }
 
+    // runs filtered data with empty filters
     insertFilteredData()
 
 }
